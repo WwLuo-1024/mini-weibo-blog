@@ -1,3 +1,7 @@
+/**
+ * @description sequelize sync database
+ * @author Luo Wang
+ */
 const seq = require('./seq')
 
 require('./model')
