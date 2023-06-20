@@ -25,6 +25,7 @@ async function getUserInfo(userName, password) {
         attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
         where: whereOpt
     })
+    
     if (result == null) {
         //未找到
         return result
@@ -32,10 +33,28 @@ async function getUserInfo(userName, password) {
 
     //格式化
     const formatRes = formatUser(result.dataValues)
-
+    
     return formatRes
 }
 
+/**
+ * 
+ * @param {string} userName 
+ * @param {string} password 
+ * @param {number} gender 
+ * @param {string} nickName 
+ */
+async function createUser({userName, password, gender = 3, nickName}) {
+    const result = await User.create({
+        userName,
+        password,
+        nickName: nickName ? nickName : userName,
+        gender
+    })
+    return result.dataValues
+}
+
 module.exports = {
-    getUserInfo
+    getUserInfo,
+    createUser
 }

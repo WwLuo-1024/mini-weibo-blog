@@ -10,6 +10,7 @@ const redisStore = require('koa-redis')
 
 const { REDIS_CONF } = require('./conf/db')
 const { isProd } = require('./utils/env')
+const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 
 //routes register
 const index = require('./routes/index')
@@ -40,7 +41,7 @@ app.use(views(__dirname + '/views', {
 }))
 
 //session configuration
-app.keys = ['UIsdf_7878#$'] //encryption
+app.keys = [SESSION_SECRET_KEY] //encryption
 app.use(session({
   key: 'weibo.sid', //cookie name (默认koa.sid)
   prefix: 'weibo:sess:', //prefix of redis key (默认为koa:sess:)
