@@ -4,5 +4,5 @@
  */
 
 module.exports = {
-    DEFAULT_PICTURE : 'https://dwz.cn/rnTnftZs'
+    DEFAULT_PICTURE : 'https://s1.ax1x.com/2023/06/21/pCGIHE9.jpg'
 }
