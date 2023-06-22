@@ -3,7 +3,6 @@
  * @author Luo Wang
  */
 
-const serve = require('koa-static')
 const server = require('../server')
 
 //用户信息
@@ -70,10 +69,43 @@ test('login, should success', async() => {
     COOKIE = res.header['set-cookie'].join(';')
 })
 
+//修改基本信息
+test('Modify user info should be successful', async() => {
+    const res = await server
+        .patch('/api/user/changeInfo')
+        .send({
+            nickName: 'Test NickName',
+            city: 'Test City',
+            picture: '/test.png'
+        })
+        .set('cookie', COOKIE)
+    expect(res.body.errno).toBe(0)
+})
+
+//修改密码
+test('Modify password should be successful', async() => {
+    const res = await server
+        .patch('/api/user/changePassword')
+        .send({
+            password,
+            newPassword: `p_${Date.now()}`
+        })
+        .set('cookie', COOKIE)
+    expect(res.body.errno).toBe(0)
+})
+
 //删除
 test('It should be successful to delete user', async () => {
     const res = await server
         .post('/api/user/delete')
+        .set('cookie', COOKIE)
+    expect(res.body.errno).toBe(0)
+})
+
+//退出
+test('It should be successful to logout', async () => {
+    const res = await server
+        .post('/api/user/logout')
         .set('cookie', COOKIE)
     expect(res.body.errno).toBe(0)
 })
