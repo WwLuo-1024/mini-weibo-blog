@@ -27,7 +27,8 @@
     "koa-views": "^6.2.0",
     "mysql2": "^3.3.5",
     "redis": "^4.6.7",
-    "sequelize": "^6.32.0"
+    "sequelize": "^6.32.0",
+    "xss": "^1.0.14"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
