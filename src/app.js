@@ -20,6 +20,7 @@ const userViewRouter = require('./routes/view/user')
 const userAPIRouter = require('./routes/api/user')
 const utilsAPIRouter = require('./routes/api/utils')
 const blogHomeAPIRouter = require('./routes/api/blog-home')
+const profileAPIRouter = require('./routes/api/blog-profile')
 const errorViewRouter = require('./routes/view/error')
 
 // error handler
@@ -73,6 +74,7 @@ app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(utilsAPIRouter.routes(), errorViewRouter.allowedMethods())
 app.use(blogHomeAPIRouter.routes(), blogHomeAPIRouter.allowedMethods())
+app.use(profileAPIRouter.routes(), profileAPIRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) //404 route need to be used in the bottom
 
 // error-handling
