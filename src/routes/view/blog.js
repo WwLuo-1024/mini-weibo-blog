@@ -8,6 +8,7 @@ const { loginRedirect } = require('../../middlewares/loginChecks')
 const { getProfileBlogList } = require('../../controller/blog-profile')
 const { isExist } = require('../../controller/user')
 const { getSquareBlogList } = require('../../controller/blog-square')
+const { getFans } = require('../../controller/user-relation')
 //首页
 router.get('/', loginRedirect, async (ctx, next) => {
     await ctx.render('index', {})
@@ -43,9 +44,12 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => { //访问�
     //获取微博第一页数据
     //controller
     const result = await getProfileBlogList(curUserName, 0)
-    
     const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
-    console.log(blogList)
+    
+    //获取粉丝
+    //controller
+    const fansResult = await getFans(curUserInfo.id) //当前主页用户的id
+    const { count: fansCount, fansList } = fansResult.data
     await ctx.render('profile', {
         blogData: {
             isEmpty,
@@ -56,7 +60,11 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => { //访问�
         },
         userData: {
             userInfo: curUserInfo,
-            isMe
+            isMe,
+            fansData: {
+                count: fansCount,
+                list: fansList
+            }
         }
     })
 })
