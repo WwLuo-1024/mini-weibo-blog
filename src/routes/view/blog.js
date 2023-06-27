@@ -50,6 +50,12 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => { //访问�
     //controller
     const fansResult = await getFans(curUserInfo.id) //当前主页用户的id
     const { count: fansCount, fansList } = fansResult.data
+    
+    //我是否关注了此人
+    const amIFollowed = fansList.some(item => {
+        return item.userName === myUserName
+    })
+    
     await ctx.render('profile', {
         blogData: {
             isEmpty,
@@ -64,7 +70,8 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => { //访问�
             fansData: {
                 count: fansCount,
                 list: fansList
-            }
+            },
+            amIFollowed
         }
     })
 })
