@@ -3,7 +3,10 @@
  * @author Luo Wang
  */
 
-const { getUsersByFollower, addFollwer, deleteFollower } = require('../services/user-relation')
+const { getUsersByFollower, 
+        addFollwer, 
+        deleteFollower,
+        getFollowersByUser } = require('../services/user-relation')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../model/ErrorInfo')
 /** 根据userId获取粉丝列表
@@ -34,6 +37,12 @@ async function follow(myUserId, curUserId) {
     }
 }
 
+/**
+ * 
+ * @param {number} myUserId 
+ * @param {number} curUserId 
+ * @returns 
+ */
 async function unFollow(myUserId, curUserId) {
     const result = await deleteFollower(myUserId, curUserId)
     if (result) {
@@ -42,8 +51,22 @@ async function unFollow(myUserId, curUserId) {
     return new ErrorModel(deleteFollowerFailInfo)
 }
 
+/**
+ * 获取关注人列表
+ * @param {number} userId 
+ */
+async function getFollowers(userId) {
+    //service
+    const { count, userList } = await getFollowersByUser(userId)
+    return new SuccessModel({
+        count, 
+        followersList: userList
+    })
+}
+
 module.exports = {
     getFans,
     follow,
-    unFollow
+    unFollow,
+    getFollowers
 }

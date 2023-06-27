@@ -50,6 +50,12 @@ async function addFollwer(userId, followerId) {
     return result.dataValues
 }
 
+/**
+ * 
+ * @param {number} userId 
+ * @param {number} followerId 
+ * @returns 
+ */
 async function deleteFollower(userId, followerId) {
     const result = await UserRelation.destroy({
         where: {
@@ -60,8 +66,44 @@ async function deleteFollower(userId, followerId) {
     return result > 0
 }
 
+/**
+ * 获取关注人列表
+ * @param {number} userId 
+ */
+async function getFollowersByUser(userId) {
+    const result = await UserRelation.findAndCountAll({
+        order: [
+            ['id', 'desc']
+        ],
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'userName', 'nickName', 'picture']
+            }
+        ],
+        where: {
+            userId
+        }
+    })
+
+    //result.count总数
+    //result.rows查询结果，数组
+    let userList = result.rows.map(row => row.dataValues)
+    userList = userList.map(item => {
+        let user = item.user.dataValues
+        user = formatUser(user)
+        return user
+    })
+
+    return {
+        count: result.count,
+        userList
+    }
+}
+
 module.exports = {
     getUsersByFollower,
     addFollwer,
-    deleteFollower
+    deleteFollower,
+    getFollowersByUser
 }
