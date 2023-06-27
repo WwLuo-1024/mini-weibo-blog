@@ -4,7 +4,7 @@
  */
 
 const server = require("../server")
-const { COOKIE } = require('../testUserInfo')
+const { Z_COOKIE } = require('../testUserInfo')
 
 //存储微博ID
 let BlOG_ID = ''
@@ -21,7 +21,7 @@ test('It should be successful to crate Blog', async () => {
             content,
             image
         })
-        .set('cookie', COOKIE)
+        .set('cookie', Z_COOKIE)
     expect(res.body.errno).toBe(0)
     expect(res.body.data.content).toBe(content)
     expect(res.body.data.image).toBe(image)
