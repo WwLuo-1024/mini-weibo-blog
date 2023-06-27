@@ -79,7 +79,7 @@ async function set(key, val) {
     } else {
         objVal = val
     }
-    await redisClient.set(key, objVal)
+    await redisClient.set(key, objVal, 60)
 }
 
 /**
