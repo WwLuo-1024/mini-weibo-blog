@@ -18,6 +18,13 @@ User.hasMany(UserRelation, {
     foreignKey: 'userId'
 })
 
+
+//外键设置没成功不影响连表查询
+Blog.belongsTo(UserRelation, {
+    foreignKey: 'userId',
+    targetKey: 'followerId'
+})
+
 module.exports = {
     User,
     Blog,

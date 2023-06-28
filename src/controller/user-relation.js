@@ -4,7 +4,7 @@
  */
 
 const { getUsersByFollower, 
-        addFollwer, 
+        addFollower, 
         deleteFollower,
         getFollowersByUser } = require('../services/user-relation')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
@@ -29,7 +29,7 @@ async function getFans(userId) {
 async function follow(myUserId, curUserId) {
     //service
     try {
-        await addFollwer(myUserId, curUserId)
+        await addFollower(myUserId, curUserId)
         return new SuccessModel()
     } catch (err) {
         console.error(err)
