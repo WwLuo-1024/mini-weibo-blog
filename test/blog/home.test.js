@@ -28,3 +28,17 @@ test('It should be successful to crate Blog', async () => {
     //记录微博ID
     BlOG_ID = res.body.data.id
 })
+
+//加载第一页数据
+test('Square, Loading first page data', async () => {
+    const res = await server
+            .get(`/api/blog/loadMore/0`)
+            .set('cookie', Z_COOKIE)
+    expect(res.body.errno).toBe(0)
+    const data = res.body.data
+    expect(data).toHaveProperty('isEmpty')
+    expect(data).toHaveProperty('blogList')
+    expect(data).toHaveProperty('pageSize')
+    expect(data).toHaveProperty('pageIndex')
+    expect(data).toHaveProperty('count')
+})
